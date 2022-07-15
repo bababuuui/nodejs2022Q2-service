@@ -17,9 +17,7 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
+  console.log('Starting app on PORT: ' + PORT);
   await app.listen(PORT);
 }
 bootstrap();
-
-//todo: +10 PORT value is stored into .env file
-// +20 OpenAPI spec in doc folder corresponds with assignment
