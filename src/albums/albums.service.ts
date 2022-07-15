@@ -13,8 +13,6 @@ export class AlbumsService {
     album.name = createAlbumDto.name;
     album.year = createAlbumDto.year;
     album.artistId = createAlbumDto.artistId || null;
-
-    console.log(createAlbumDto);
     InMemoryStore.albums.push(album);
     return album;
   }
@@ -47,6 +45,11 @@ export class AlbumsService {
     const album = this.findOne(id);
     if (album) {
       InMemoryStore.albums = InMemoryStore.albums.filter((item) => item.id !== id);
+      InMemoryStore.tracks.forEach((track) => {
+        if (track.albumId === id) {
+          track.albumId = null;
+        }
+      });
     }
   }
 }

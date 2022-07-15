@@ -43,6 +43,11 @@ export class ArtistsService {
     const artist = this.findOne(id);
     if (artist) {
       InMemoryStore.artists = InMemoryStore.artists.filter((item) => item.id !== id);
+      InMemoryStore.tracks.forEach((track) => {
+        if (track.artistId === id) {
+          track.artistId = null;
+        }
+      });
     }
   }
 }

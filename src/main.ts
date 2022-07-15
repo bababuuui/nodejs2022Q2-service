@@ -20,3 +20,6 @@ async function bootstrap() {
   await app.listen(PORT);
 }
 bootstrap();
+
+//todo: +10 PORT value is stored into .env file
+// +20 OpenAPI spec in doc folder corresponds with assignment
