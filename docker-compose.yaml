@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  nest-api:
+    networks:
+      - my-network
+    container_name: nest-music-api
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    restart: always
+#    restart: on-failure
+# todo implement restart on src changes
+  postgres:
+    networks:
+      - my-network
+    container_name: db-postgres
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile.db
+    ports:
+      - 5432:5432
+#    env_file:
+#      - .env
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+     # - ./src:/src
+#      - nodemodules:/src/node_modules
+    environment:
+      - POSTGRES_PASSWORD=secrect
+      - POSTGRES_USER=postgres
+
+networks:
+  my-network:
+    name: music_api_network
+    driver: bridge
+volumes:
+  postgres:
+    name: nest-db
+#  nodemodules: {}
