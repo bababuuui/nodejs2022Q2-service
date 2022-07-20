@@ -3,6 +3,9 @@ import { Artist } from '../../artists/entities/artist.entity';
 
 @Entity('album')
 export class Album {
+  constructor() {
+    this.artistId = null;
+  }
   @PrimaryGeneratedColumn('uuid')
   id: string; // uuid v4
   @Column()
