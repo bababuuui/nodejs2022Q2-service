@@ -4,26 +4,32 @@ import { UpdateTrackDto } from './dto/update-track.dto';
 import { InMemoryStore } from '../db/in-memory-store';
 import { Track } from './entities/track.entity';
 import { v4 as uuid } from 'uuid';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class TracksService {
-  create(createTrackDto: CreateTrackDto) {
+  constructor(
+    @InjectRepository(Track)
+    private trackRepository: Repository<Track>
+  ) {}
+
+  async create(createTrackDto: CreateTrackDto) {
     const track = new Track();
     track.id = uuid();
     track.name = createTrackDto.name;
     track.duration = createTrackDto.duration;
     track.artistId = createTrackDto.artistId || null;
     track.albumId = createTrackDto.albumId || null;
-    InMemoryStore.tracks.push(track);
-    return track;
+    return await this.trackRepository.save(track);
   }
 
-  findAll() {
-    return InMemoryStore.tracks;
+  async findAll() {
+    return await this.trackRepository.find();
   }
 
-  findOne(id: string) {
-    const track = InMemoryStore.tracks.find((item) => item.id === id);
+  async findOne(id: string) {
+    const track = await this.trackRepository.findOne({ where: { id } });
     if (!track) {
       throw new NotFoundException();
     } else {
@@ -31,22 +37,21 @@ export class TracksService {
     }
   }
 
-  update(id: string, updateTrackDto: UpdateTrackDto) {
-    const track = this.findOne(id);
+  async update(id: string, updateTrackDto: UpdateTrackDto) {
+    const track = await this.findOne(id);
     track.name = updateTrackDto.name;
     track.duration = updateTrackDto.duration;
     track.artistId = updateTrackDto.artistId || null;
     track.albumId = updateTrackDto.albumId || null;
     //update in db
-    const index = InMemoryStore.tracks.indexOf(track);
-    InMemoryStore.tracks[index] = track;
-    return track;
+    return await this.trackRepository.save(track);
   }
 
-  remove(id: string) {
-    const track = this.findOne(id);
-    if (track) {
-      InMemoryStore.tracks = InMemoryStore.tracks.filter((item) => item.id !== id);
-    }
+  async remove(id: string) {
+    const track = await this.findOne(id);
+    // if (track) {
+    //   InMemoryStore.tracks = InMemoryStore.tracks.filter((item) => item.id !== id);
+    // }
+    if (track) await this.trackRepository.delete(id);
   }
 }
