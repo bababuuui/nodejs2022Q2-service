@@ -12,7 +12,7 @@ export class Album {
   name: string;
   @Column()
   year: number;
-  @ManyToOne(() => Artist, (Artist) => Artist.id, { nullable: true, onDelete: 'SET NULL' })
+  @ManyToOne(() => Artist, (Artist) => Artist.id, { eager: true, nullable: true, onDelete: 'SET NULL' })
   @JoinColumn()
   artistId: string | null; // refers to Artist
 }

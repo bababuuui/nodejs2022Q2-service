@@ -28,11 +28,11 @@ export class AlbumsService {
   }
 
   async findAll() {
-    return await this.albumRepository.find();
+    return await this.albumRepository.find({ loadRelationIds: true });
   }
 
   async findOne(id: string) {
-    const album = await this.albumRepository.findOne({ where: { id } });
+    const album = await this.albumRepository.findOne({ loadRelationIds: true, where: { id } });
     if (!album) {
       throw new NotFoundException();
     } else {

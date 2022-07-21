@@ -25,11 +25,14 @@ export class TracksService {
   }
 
   async findAll() {
-    return await this.trackRepository.find();
+    return await this.trackRepository.find({ loadRelationIds: true });
   }
 
   async findOne(id: string) {
-    const track = await this.trackRepository.findOne({ where: { id } });
+    const track = await this.trackRepository.findOne({
+      loadRelationIds: true,
+      where: { id },
+    });
     if (!track) {
       throw new NotFoundException();
     } else {
