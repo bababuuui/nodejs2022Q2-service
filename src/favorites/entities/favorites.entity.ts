@@ -1,4 +1,4 @@
-import { Column, Entity, JoinTable, ManyToMany, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, JoinTable, ManyToMany, PrimaryColumn } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { Artist } from '../../artists/entities/artist.entity';
 import { Album } from '../../albums/entities/album.entity';

@@ -1,4 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+
 @Entity('artist')
 export class Artist {
   @PrimaryGeneratedColumn('uuid')

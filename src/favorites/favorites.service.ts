@@ -1,13 +1,11 @@
 import { forwardRef, Inject, Injectable, NotFoundException, UnprocessableEntityException } from '@nestjs/common';
-import { InMemoryStore } from '../db/in-memory-store';
-import { IFavouritesResponse } from './interfaces/IFavouritesResponse';
 import { AlbumsService } from '../albums/albums.service';
 import { ArtistsService } from '../artists/artists.service';
 import { TracksService } from '../tracks/tracks.service';
 import { MESSAGES } from '../common/enums/messages';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Artist } from '../artists/entities/artist.entity';
-import { Any, ArrayContains, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Track } from '../tracks/entities/track.entity';
 import { Album } from '../albums/entities/album.entity';
 import { Favorites } from './entities/favorites.entity';

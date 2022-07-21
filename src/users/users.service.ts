@@ -2,9 +2,7 @@ import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/commo
 import { User } from './entities/user';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdatePasswordDto } from './dto/update-password.dto';
-import { v4 as uuid } from 'uuid';
 import { MESSAGES } from '../common/enums/messages';
-import { InMemoryStore } from '../db/in-memory-store';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 

@@ -2,10 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAlbumDto } from './dto/create-album.dto';
 import { UpdateAlbumDto } from './dto/update-album.dto';
 import { Album } from '../albums/entities/album.entity';
-import { InMemoryStore } from '../db/in-memory-store';
 import { v4 as uuid } from 'uuid';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../users/entities/user';
 import { Repository } from 'typeorm';
 import { Track } from '../tracks/entities/track.entity';
 
