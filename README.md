@@ -79,24 +79,23 @@ For more information, visit: https://code.visualstudio.com/docs/editor/debugging
 
 ###Docker
 
+**What has been done?**
+
+1. Created 2 dockerfiles
+
+2. Created docker-compose file
 
 
-+20 Readme.md has instruction how to run application
-**+30 user-defined bridge is created and configured**
-_+30 container auto restart after crash_
-+20 application is restarting upon changes implemented into src folder
-_+30 database files and logs to be stored in volumes instead of container_
-Advanced Scope
+3. Implemented npm script for scan vulnerabilities: 
 
-+20 Final size of the Docker image with application is less than 300 MB
-+10 Implemented npm script for vulnerabilities scanning (free solution)
-+20 Your built image is pushed to DockerHub
-Forfeits
+`npm run scan:app --IMAGE nodejs2022q2-service_nest-api`
 
--30% of total task score Commits after deadline (except commits that affect only Readme.md, .gitignore, etc.)
--20 Missing PR
--10 PR description is incorrect
--20 No separate development branch
--20 docker-compose.yml contains hardcoded variables
--20 In case specific image is not used (it is required to use images like postgres and node, but not ubuntu with installation of node or postgres)
-**-20 Postgres container is not configured as dependency for application container**
+
+4. Pushed docker images to ducker hub:   ![img.png](img.png)
+
+
+**How to build and run images:** 
+
+Make sure your .env file has vars according to .env.example file
+
+run in terminal `docker compose up -V`
