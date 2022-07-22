@@ -44,10 +44,11 @@ export class FavoritesService {
     return fav ? fav : this.getDefaultFavsObj();
   }
   private async findOne(id = USER_ID) {
-    const result = await this.favoritesRepository.findOne({
+    const fav = await this.favoritesRepository.findOne({
       // relations: ['albums', 'artists', 'tracks'],
       where: { userId: id },
     });
+    const result = fav ? fav : this.getDefaultFavsObj();
     // this code should never be written
     result.albums.map((item) => {
       if (item.artistId) item.artistId = item.artistId['id'];
