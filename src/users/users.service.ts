@@ -5,6 +5,8 @@ import { UpdatePasswordDto } from './dto/update-password.dto';
 import { MESSAGES } from '../common/enums/messages';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { SignUpDto } from '../auth/dto/sign-up.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -26,11 +28,20 @@ export class UsersService {
     }
   }
 
-  async create(createDto: CreateUserDto): Promise<User> {
+  async findOneByLogin(login: string): Promise<User> {
+    const user = await this.userRepository.findOne({ where: { login } });
+    if (!user) {
+      throw new NotFoundException();
+    } else {
+      return user;
+    }
+  }
+
+  async create(createDto: CreateUserDto | SignUpDto): Promise<User> {
     const nowDate = Math.floor(Date.now() / 1000);
     const newUser = new User();
     newUser.login = createDto.login;
-    newUser.password = createDto.password;
+    newUser.password = await bcrypt.hash(createDto.password, 10);
     newUser.version = 1;
     newUser.createdAt = nowDate;
     newUser.updatedAt = nowDate;
