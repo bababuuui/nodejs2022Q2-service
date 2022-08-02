@@ -51,11 +51,11 @@ export class UsersService {
 
   async update(id: string, updateDto: UpdatePasswordDto): Promise<User> {
     const user = await this.findOne(id);
-    if (user.password !== updateDto.oldPassword) {
+    if (!(await bcrypt.compare(updateDto.oldPassword, user.password))) {
       throw new ForbiddenException(MESSAGES.OLD_PASSWORD_IS_WRONG);
     }
     user.version++;
-    user.password = updateDto.newPassword;
+    user.password = await bcrypt.hash(updateDto.newPassword, 10);
     user.updatedAt = Math.floor(Date.now() / 1000) + 1;
     return await this.userRepository.save(user);
   }
