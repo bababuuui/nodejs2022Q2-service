@@ -1,5 +1,4 @@
 import { ForbiddenException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
-import { User } from './entities/user';
 import { MESSAGES } from '../common/enums/messages';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -9,6 +8,7 @@ import { SignUpDto } from './dto/sign-up.dto';
 import { LoginDto } from './dto/login.dto';
 import * as bcrypt from 'bcrypt';
 import { RefreshDto } from './dto/refresh.dto';
+import { User } from '../users/entities/user';
 
 @Injectable()
 export class AuthService {
@@ -61,7 +61,6 @@ export class AuthService {
     }
     try {
       const data = await this.verifyRefreshToken(refreshDto.refreshToken);
-      console.log(data);
       return this.singTokens(data.payload);
     } catch (err) {
       throw new ForbiddenException(MESSAGES.REFRESH_IS_INVALID);
