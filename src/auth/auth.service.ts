@@ -9,10 +9,13 @@ import { LoginDto } from './dto/login.dto';
 import * as bcrypt from 'bcrypt';
 import { RefreshDto } from './dto/refresh.dto';
 import { User } from '../users/entities/user';
+import { CustomLogger } from '../common/utils/logging/custom-logger.service';
 
 @Injectable()
 export class AuthService {
-  constructor(private usersService: UsersService, private jwtService: JwtService) {}
+  constructor(private usersService: UsersService, private jwtService: JwtService, private logger: CustomLogger) {
+    this.logger = new CustomLogger(AuthService.name);
+  }
 
   private async validateUser(login: string, pass: string): Promise<User | null> {
     const user = await this.usersService.findOneByLogin(login);

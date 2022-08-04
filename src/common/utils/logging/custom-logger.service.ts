@@ -12,7 +12,6 @@ export class CustomLogger extends ConsoleLogger {
     const levels = [];
     const LEVEL = process.env.LOG_LEVEL || 0;
     Object.keys(LogLevels).forEach((key) => {
-      console.log(LogLevels[key]);
       if (parseInt(LogLevels[key]) <= LEVEL) {
         levels.push(key.toLowerCase());
       }

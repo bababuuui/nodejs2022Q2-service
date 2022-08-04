@@ -9,10 +9,11 @@ import { AuthService } from '../auth/auth.service';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '../users/entities/user';
+import { CustomLogger } from '../common/utils/logging/custom-logger.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Artist, Track, Album, User])],
   controllers: [ArtistsController],
-  providers: [ArtistsService, AuthService, UsersService, JwtService],
+  providers: [ArtistsService, AuthService, UsersService, JwtService, CustomLogger],
 })
 export class ArtistsModule {}
