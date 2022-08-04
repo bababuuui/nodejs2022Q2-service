@@ -10,7 +10,6 @@ export class CustomLogger extends ConsoleLogger {
     super(context, options);
     //setting log levels
     if (!options || !options.logLevels) {
-      console.log('asd');
       const levels = [];
       const LEVEL = process.env.LOG_LEVEL || 0;
       Object.keys(LogLevels).forEach((key) => {
