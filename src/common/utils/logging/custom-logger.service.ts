@@ -9,14 +9,17 @@ export class CustomLogger extends ConsoleLogger {
   constructor(context?: string, options?: ConsoleLoggerOptions) {
     super(context, options);
     //setting log levels
-    const levels = [];
-    const LEVEL = process.env.LOG_LEVEL || 0;
-    Object.keys(LogLevels).forEach((key) => {
-      if (parseInt(LogLevels[key]) <= LEVEL) {
-        levels.push(key.toLowerCase());
-      }
-    });
-    this.setLogLevels(levels);
+    if (!options || !options.logLevels) {
+      console.log('asd');
+      const levels = [];
+      const LEVEL = process.env.LOG_LEVEL || 0;
+      Object.keys(LogLevels).forEach((key) => {
+        if (parseInt(LogLevels[key]) <= LEVEL) {
+          levels.push(key.toLowerCase());
+        }
+      });
+      this.setLogLevels(levels);
+    }
   }
 
   log(message: any, ...optionalParams: any[]) {
