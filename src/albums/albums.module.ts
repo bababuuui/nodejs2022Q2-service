@@ -8,10 +8,11 @@ import { AuthService } from '../auth/auth.service';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '../users/entities/user';
+import { CustomLogger } from '../common/utils/logging/custom-logger.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Album, Track, User])],
   controllers: [AlbumsController],
-  providers: [AlbumsService, AuthService, UsersService, JwtService],
+  providers: [AlbumsService, AuthService, UsersService, JwtService, CustomLogger],
 })
 export class AlbumsModule {}
